@@ -1,4 +1,3 @@
-#pragma once
 #include "Defines.hpp"
 
 namespace Delve
