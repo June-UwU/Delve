@@ -10,4 +10,6 @@ project(Delve_Api LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED)
 
-add_subdirectory("Source")
+
+add_subdirectory("Delve")
+add_subdirectory("test")
