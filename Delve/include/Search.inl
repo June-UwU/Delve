@@ -1,11 +1,12 @@
 #include "Defines.hpp"
+#include "Search.hpp"
 
 namespace Delve
 {
 namespace Search
 {
 template<typename T, size_t Len>
-DELVE int linear_search(const T (*array)[Len], const T Key)
+int linear_search(const T (&array)[Len], const T Key)
 {
 	for (size_t i = 0; i < Len; i++)
 	{
@@ -15,23 +16,10 @@ DELVE int linear_search(const T (*array)[Len], const T Key)
 		}
 	}
 	return -1;
-}
-
-template<typename T>
-DELVE int linear_search(const T(*array), const T Key)
-{
-	for (size_t i = 0; i < sizeof(array); i++)
-	{
-		if (array[i] == Key)
-		{
-			return i;
-		}
-	}
-	return -1;
-}
+};
 
 template<typename T, size_t Len>
-DELVE int binary_search(const T (*array)[Len], const T Key)
+int binary_search(const T (&array)[Len], const T Key)
 {
 	if (Key > array[Len / 2])
 	{
@@ -54,32 +42,25 @@ DELVE int binary_search(const T (*array)[Len], const T Key)
 		}
 	}
 	return -1;
-}
+};
 
-template<typename T>
-DELVE int binary_search(const T(*array), const T Key)
+template<typename T, size_t Len>
+void insertion_sort(T (&array)[Len])
 {
-	if (Key > array[sizeof(array) / 2])
+	for (int i = 0; i < Len; i++)
 	{
-		for (int i = 0; i < sizeof(array) / 2; i++)
+		T Key = array[i];
+		for (int j = i; j < Len; j++)
 		{
-			if (array[i] == Key)
+			if (Key > array[j])
 			{
-				return i;
+				Key		 = array[j];
+				array[j] = array[i];
+				array[j] = Key;
 			}
 		}
 	}
-	else
-	{
-		for (int i = sizeof(array) / 2; i < sizeof(array); i++)
-		{
-			if (array[i] == Key)
-			{
-				return i;
-			}
-		}
-	}
-	return -1;
-}
+};
+
 } // namespace Search
 } // namespace Delve

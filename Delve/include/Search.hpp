@@ -6,14 +6,11 @@ namespace Delve
 namespace Search
 {
 template<typename T, size_t Len>
-DELVE int linear_search(const T (*array)[Len], const T Key);
-template<typename T>
-DELVE int linear_search(const T(*array), const T Key);
+int linear_search(const T (&array)[Len], const T Key);
 template<typename T, size_t Len>
-DELVE int binary_search(const T (*array)[Len], const T Key);
-
-template<typename T>
-DELVE int binary_search(const T(*array), const T Key);
+int binary_search(const T (&array)[Len], const T Key);
+template<typename T, size_t Len>
+void insertion_sort(T (&array)[Len]);
 } // namespace Search
 } // namespace Delve
 

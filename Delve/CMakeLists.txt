@@ -13,5 +13,5 @@ file(GLOB_RECURSE inc "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
 
 add_definitions(-DDELVE_API)
 
-add_library(${PROJECT_NAME} SHARED ${src} ${inc} ${inl})
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+add_library(${PROJECT_NAME} INTERFACE ${src} ${inc} ${inl})
+target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
