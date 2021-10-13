@@ -21,7 +21,7 @@ int linear_search(const T (&array)[Len], const T Key)
 template<typename T, size_t Len>
 int binary_search(const T (&array)[Len], const T Key)
 {
-	if (Key > array[Len / 2])
+	if (Key < array[Len / 2])
 	{
 		for (int i = 0; i < Len / 2; i++)
 		{
