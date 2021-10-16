@@ -44,6 +44,9 @@ int binary_search(const T (&array)[Len], const T Key)
 	return -1;
 };
 
+} // namespace Search
+namespace Sort
+{
 template<typename T, size_t Len>
 void insertion_sort(T (&array)[Len])
 {
@@ -56,11 +59,11 @@ void insertion_sort(T (&array)[Len])
 			{
 				Key		 = array[j];
 				array[j] = array[i];
-				array[j] = Key;
+				array[i] = Key;
 			}
 		}
 	}
 };
 
-} // namespace Search
+} // namespace Sort
 } // namespace Delve
