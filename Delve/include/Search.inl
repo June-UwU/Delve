@@ -5,10 +5,10 @@ namespace Delve
 {
 namespace Search
 {
-template<typename T, size_t Len>
-int linear_search(const T (&array)[Len], const T Key)
+template<typename T, size_t N>
+T linear_search(const T (&array)[N], const T Key) noexcept
 {
-	for (size_t i = 0; i < Len; i++)
+	for (size_t i = 0; i < N; i++)
 	{
 		if (array[i] == Key)
 		{
@@ -18,12 +18,12 @@ int linear_search(const T (&array)[Len], const T Key)
 	return -1;
 };
 
-template<typename T, size_t Len>
-int binary_search(const T (&array)[Len], const T Key)
+template<typename T, size_t N>
+T binary_search(const T (&array)[N], const T Key) noexcept
 {
-	if (Key < array[Len / 2])
+	if (Key < array[N / 2])
 	{
-		for (int i = 0; i < Len / 2; i++)
+		for (int i = 0; i < N / 2; i++)
 		{
 			if (array[i] == Key)
 			{
@@ -33,7 +33,7 @@ int binary_search(const T (&array)[Len], const T Key)
 	}
 	else
 	{
-		for (int i = Len / 2; i < Len; i++)
+		for (int i = N / 2; i < N; i++)
 		{
 			if (array[i] == Key)
 			{

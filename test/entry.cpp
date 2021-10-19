@@ -30,6 +30,14 @@ TEST(sort, linear_sort)
 	ASSERT_EQ(0, std::memcmp(array_1, check_1, sizeof(array_1)));
 }
 
+TEST(sort, merge_sort)
+{
+	int array_1[]{ 5, 4, 3, 2, 1, 0 };
+	int check_1[]{ 0, 1, 2, 3, 4, 5 };
+	Delve::Sort::merge_sort(array_1, 0, std::size(array_1));
+	ASSERT_EQ(0, std::memcmp(array_1, check_1, sizeof(array_1)));
+}
+
 int main(int argc, char** argv)
 {
 	::testing::InitGoogleTest(&argc, argv);
