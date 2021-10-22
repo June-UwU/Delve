@@ -6,12 +6,15 @@ set(PROJECTDIR "${CMAKE_CURRENT_SOURCE_DIR}")
 
 
 project(${PROJECT_NAME} LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED)
 
-file(GLOB_RECURSE src "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
-file(GLOB_RECURSE inl "${CMAKE_CURRENT_SOURCE_DIR}/*.inl")
+
 file(GLOB_RECURSE inc "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
+file(GLOB_RECURSE inl "${CMAKE_CURRENT_SOURCE_DIR}/*.inl")
+
 
 add_definitions(-DDELVE_API)
 
-add_library(${PROJECT_NAME} INTERFACE ${src} ${inc} ${inl})
-target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+add_library(${PROJECT_NAME} INTERFACE  ${inc} ${inl})
+target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include/)

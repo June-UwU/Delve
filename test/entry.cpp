@@ -38,6 +38,14 @@ TEST(sort, merge_sort)
 	ASSERT_EQ(0, std::memcmp(array_1, check_1, sizeof(array_1)));
 }
 
+TEST(subarray, subarray_brute)
+{
+	int	 array_1[]{ 5, 4, -3, 2, 1, 1 };
+	int	 check_1[]{ 5, 4, 2, 1, 1 };
+	auto ret = Delve::algo::max_subarray_brute(array_1);
+	ASSERT_EQ(0, std::memcmp(ret.ptr, check_1, sizeof(int) * ret.size));
+}
+
 int main(int argc, char** argv)
 {
 	::testing::InitGoogleTest(&argc, argv);
