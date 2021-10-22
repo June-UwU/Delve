@@ -1,5 +1,6 @@
 #pragma once
 #include <limits>
+#include "Sort.hpp"
 
 namespace Delve
 {
@@ -25,11 +26,11 @@ void insertion_sort(T (&array)[N]) noexcept
 template<typename T>
 void merge(T* array, size_t left_start, size_t right_end)
 {
-	size_t left_end	= (right_end + left_start) / 2;
+	size_t left_end	   = (right_end + left_start) / 2;
 	size_t right_start = left_end + 1;
-	T*	l_array		= new T[left_end];
+	T*	   l_array	   = new T[left_end];
 	// giving full array length as out of bounds memory access happens when given (right end - left end) + 1
-	T*	r_array = new T[right_end];
+	T*	   r_array = new T[right_end];
 	size_t l_index = 0;
 	size_t r_index = 0;
 	for (int i = left_start; i < left_end; i++)
@@ -69,5 +70,24 @@ void merge_sort(T* array, size_t left, size_t right) noexcept
 	merge_sort(array, middle + 1, right);
 	merge(array, left, right);
 }
+
+template<typename T>
+void insertion_sort(T* array, size_t N) noexcept
+{
+	for (int i = 0; i < N; i++)
+	{
+		T Key = array[i];
+		for (int j = i; j < N; j++)
+		{
+			if (Key > array[j])
+			{
+				Key		 = array[j];
+				array[j] = array[i];
+				array[i] = Key;
+			}
+		}
+	}
+}
+
 } // namespace Sort
 } // namespace Delve
