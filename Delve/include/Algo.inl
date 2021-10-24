@@ -163,7 +163,7 @@ template<typename T>
 sub_array_ret<T> max_subarray_dac(T* array, size_t low, size_t high)
 {
 	sum_ends	  result = find_max_subarray(array, low, high);
-	sub_array_ret ret;
+	sub_array_ret<T> ret;
 	ret.sum		 = result.sum;
 	ret.size	 = result.high - result.low;
 	ret.ptr		 = new T[ret.size];

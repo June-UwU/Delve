@@ -61,8 +61,19 @@ TEST(subarray, min_subarray_brute)
 	ASSERT_EQ(0, std::memcmp(ret.ptr, check_1, sizeof(int) * ret.size));
 }
 
+TEST(subarray, max_subarray_dac)
+{
+	int array_1[]{ 5, 4, -3, 2, 1, 1 };
+	auto ret = Delve::algo::max_subarray_dac(array_1, 0, std::size(array_1));
+	for (size_t i = 0;i<ret.size;i++)
+	{
+		std::cout << ret.ptr[i] << "\t";
+	}
+}
+
 int main(int argc, char** argv)
 {
+	// TODO :write test for heap class and debug all functions and utils
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
 }
