@@ -64,11 +64,16 @@ template<typename T>
 void merge_sort(T* array, size_t left, size_t right) noexcept
 {
 	if (left >= right)
+	{
 		return;
-	size_t middle = (right + left) / 2;
-	merge_sort(array, left, middle);
-	merge_sort(array, middle + 1, right);
-	merge(array, left, right);
+	}
+	else
+	{
+		size_t middle = (right + left) / 2;
+		merge_sort(array, left, middle);
+		merge_sort(array, middle + 1, right);
+		merge(array, left, right);
+	}
 }
 
 template<typename T>
