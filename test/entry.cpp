@@ -35,14 +35,18 @@ TEST(sort, linear_sort)
 
 TEST(sort, merge_sort)
 {
-	int array_1[]{ 5, 4, 3, 2, 1, 0 };
-	int check_1[]{ 0, 1, 2, 3, 4, 5 };
-	Delve::Sort::merge_sort(array_1, 0, std::size(array_1));
-	for (int i = 0; i < 6; i++)
+	int array_1[]{ 2, 1, 0, -1, -2 ,4,3,-2,3,5,3,76,4,72,0,3,1,3,57,3};
+	bool   relativity = true;
+	size_t size = std::size(array_1);
+	Delve::Sort::merge_sort(array_1, 0, size,size);
+	for (int i = 0; i < size-1; i++)
 	{
-		std::cout << array_1[i] << "\t";
+		if (array_1[i] > array_1[i+1])
+		{
+			relativity = false;
+		}
 	}
-	ASSERT_EQ(0, std::memcmp(array_1, check_1, sizeof(array_1)));
+	ASSERT_TRUE(relativity);
 }
 
 TEST(subarray, max_subarray_brute)
@@ -61,15 +65,16 @@ TEST(subarray, min_subarray_brute)
 	ASSERT_EQ(0, std::memcmp(ret.ptr, check_1, sizeof(int) * ret.size));
 }
 
-TEST(subarray, max_subarray_dac)
-{
-	int array_1[]{ 5, 4, -3, 2, 1, 1 };
-	auto ret = Delve::algo::max_subarray_dac(array_1, 0, std::size(array_1));
-	for (size_t i = 0;i<ret.size;i++)
-	{
-		std::cout << ret.ptr[i] << "\t";
-	}
-}
+// TEST(subarray, max_subarray_dac)
+//{
+//	int array_1[]{ 5, 4, -3, 2, 1, 1 };
+//	auto ret = Delve::algo::max_subarray_dac(array_1, 0, std::size(array_1));
+//	//for (size_t i = 0;i<ret.size;i++)
+//	//{
+//	//	std::cout << ret.ptr[i] << "\t";
+//	//}
+//	std::cout << ret.size;
+//}
 
 int main(int argc, char** argv)
 {

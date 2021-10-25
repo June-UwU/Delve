@@ -24,55 +24,71 @@ void insertion_sort(T (&array)[N]) noexcept
 	}
 }
 template<typename T>
-void merge(T* array, size_t left_start, size_t right_end)
+void merge(T* array, size_t left, size_t mid, size_t right, size_t size)
 {
-	size_t left_end	   = (right_end + left_start) / 2;
-	size_t right_start = left_end + 1;
-	T*	   l_array	   = new T[left_end];
-	// giving full array length as out of bounds memory access happens when given (right end - left end) + 1
-	T*	   r_array = new T[right_end];
+	size_t l_size  = mid - left + 1;
+	size_t r_size  = right - mid;
+	T*	   l_array = new T[l_size];
+	T*	   r_array = new T[r_size];
+	for (size_t i = 0; i < l_size; i++)
+	{
+		l_array[i] = array[left + i];
+	}
+	for (size_t i = 0; i < r_size; i++)
+	{
+		if ((mid +1 +i) == size)
+		{
+			//last edge case handling...size will be zero here
+			r_size--;
+		}else
+		{
+			r_array[i] = array[mid + i + 1];		
+		}
+		
+	}
 	size_t l_index = 0;
 	size_t r_index = 0;
-	for (int i = left_start; i < left_end; i++)
+	size_t a_index = left;
+	while ((l_index < l_size) && (r_index < r_size))
 	{
-		l_array[l_index] = array[left_start + i];
-		l_index++;
-	}
-	for (int i = right_start; i < right_end; i++)
-	{
-		r_array[r_index] = array[i];
-		r_index++;
-	}
-	l_index = r_index = 0;
-	for (int i = left_start; i < right_end; i++)
-	{
-		if ((l_array[l_index] <= r_array[r_index]) && (l_index < left_end))
+		if (l_array[l_index] <= r_array[r_index])
 		{
-			array[i] = l_array[l_index];
+			array[a_index] = l_array[l_index];
 			l_index++;
 		}
-		else if (r_index < right_end)
+		else
 		{
-			array[i] = r_index;
+			array[a_index] = r_array[r_index];
 			r_index++;
 		}
+		a_index++;
 	}
-	delete[] l_array;
-	delete[] r_array;
+	while (l_index < l_size)
+	{
+		array[a_index] = l_array[l_index];
+		l_index++;
+		a_index++;
+	}
+	while (r_index < r_size)
+	{
+		array[a_index] = r_array[r_index];
+		r_index++;
+		a_index++;
+	}
 }
 template<typename T>
-void merge_sort(T* array, size_t left, size_t right) noexcept
+void merge_sort(T* array, size_t left, size_t right, size_t size) noexcept
 {
 	if (left >= right)
 	{
 		return;
 	}
-	else
+		else
 	{
 		size_t middle = (right + left) / 2;
-		merge_sort(array, left, middle);
-		merge_sort(array, middle + 1, right);
-		merge(array, left, right);
+		merge_sort(array, left, middle,size);
+		merge_sort(array, middle + 1, right,size);
+		merge(array, left, middle, right,size);
 	}
 }
 

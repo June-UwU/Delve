@@ -3,7 +3,6 @@ template<typename T>
 class array_return
 {
 public:
-	~array_return() { delete[] ptr; }
 	T*	   ptr;
 	size_t size;
 };
@@ -28,7 +27,6 @@ template<typename T>
 class sub_array_ret
 {
 public:
-	~sub_array_ret() { delete[] ptr; }
 	T*	   ptr;
 	size_t size;
 	T	   sum;
