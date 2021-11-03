@@ -11,12 +11,12 @@ public:
 	Heap();
 	Heap(const Heap& rhs) noexcept;
 	Heap(const Heap&& rhs) noexcept;
-	Heap operator=(const Heap& rhs);
-	Heap operator=(const Heap&& rhs);
+	Heap& operator=(const Heap& rhs);
+	Heap& operator=(const Heap&& rhs);
 	Heap(const T* ptr) noexcept;
 	Heap(std::initializer_list<T> list) noexcept;
-	size_t size() { return N; };
-	T*	   get() { return m_Array; };
+	size_t size() const { return N; };
+	T*	   get()  const { return m_Array; };
 	T	   operator[](size_t index) { return m_Array[index]; };
 	T	   get_parent(size_t index) { return index / 2; };
 	T	   get_left_child(size_t index);

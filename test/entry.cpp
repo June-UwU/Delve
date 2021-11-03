@@ -24,24 +24,13 @@ TEST(search, binary_search)
 
 TEST(sort, linear_sort)
 {
-	int array_1[]{ 5, 4, 3, 2, 1, 0 };
-	int array_2[]{ 5, 4, 3, 2, 1, 0 };
-	int check_1[]{ 0, 1, 2, 3, 4, 5 };
-	Delve::Sort::insertion_sort(array_1);
-	Delve::Sort::insertion_sort(array_2, std::size(array_2));
-	ASSERT_EQ(0, std::memcmp(array_2, check_1, sizeof(array_1)));
-	ASSERT_EQ(0, std::memcmp(array_1, check_1, sizeof(array_1)));
-}
-
-TEST(sort, merge_sort)
-{
-	int array_1[]{ 2, 1, 0, -1, -2 ,4,3,-2,3,5,3,76,4,72,0,3,1,3,57,3};
+	int	   array_1[]{ 2, 1, 0, -1, -2, 4, 3, -2, 3, 5, 3, 76, 4, 72, 0, 3, 1, 3, 57, 3 };
 	bool   relativity = true;
-	size_t size = std::size(array_1);
-	Delve::Sort::merge_sort(array_1, 0, size,size);
-	for (int i = 0; i < size-1; i++)
+	size_t size		  = std::size(array_1);
+	Delve::Sort::insertion_sort(array_1, size);
+	for (int i = 0; i < size - 1; i++)
 	{
-		if (array_1[i] > array_1[i+1])
+		if (array_1[i] > array_1[i + 1])
 		{
 			relativity = false;
 		}
@@ -49,32 +38,28 @@ TEST(sort, merge_sort)
 	ASSERT_TRUE(relativity);
 }
 
-TEST(subarray, max_subarray_brute)
+TEST(sort, merge_sort)
 {
-	int	 array_1[]{ 5, 4, -3, 2, 1, 1 };
-	int	 check_1[]{ 5, 4, 2, 1, 1 };
-	auto ret = Delve::algo::max_subarray_brute(array_1);
-	ASSERT_EQ(0, std::memcmp(ret.ptr, check_1, sizeof(int) * ret.size));
+	int	   array_1[]{ 2, 1, 0, -1, -2, 4, 3, -2, 3, 5, 3, 76, 4, 72, 0, 3, 1, 3, 57, 3 };
+	bool   relativity = true;
+	size_t size		  = std::size(array_1);
+	Delve::Sort::merge_sort(array_1, 0, size, size);
+	for (int i = 0; i < size - 1; i++)
+	{
+		if (array_1[i] > array_1[i + 1])
+		{
+			relativity = false;
+		}
+	}
+	ASSERT_TRUE(relativity);
 }
 
-TEST(subarray, min_subarray_brute)
+TEST(algorithm, kadane_max_sub_array)
 {
-	int	 array_1[]{ 5, 4, -3, 2, 1, 1 };
-	int	 check_1[]{ -3 };
-	auto ret = Delve::algo::min_subarray_brute(array_1);
-	ASSERT_EQ(0, std::memcmp(ret.ptr, check_1, sizeof(int) * ret.size));
+	int	 array_1[]{ -1, -2, -3, -4, -5, 6, 7 };
+	auto ret = Delve::algo::max_subarray_kadane(array_1, std::size(array_1));
+	ASSERT_TRUE(ret == 13);
 }
-
-// TEST(subarray, max_subarray_dac)
-//{
-//	int array_1[]{ 5, 4, -3, 2, 1, 1 };
-//	auto ret = Delve::algo::max_subarray_dac(array_1, 0, std::size(array_1));
-//	//for (size_t i = 0;i<ret.size;i++)
-//	//{
-//	//	std::cout << ret.ptr[i] << "\t";
-//	//}
-//	std::cout << ret.size;
-//}
 
 int main(int argc, char** argv)
 {

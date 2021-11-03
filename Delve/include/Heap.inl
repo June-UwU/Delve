@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <cassert>
 #include <type_traits>
 #include <limits>
@@ -28,7 +29,7 @@ inline T Heap<T, N>::get_left_child(size_t index)
 	{
 		return m_Array[2 * index];
 	}
-	else//defining a predictable behaviour for the cases where a child is not present
+	else // defining a predictable behaviour for the cases where a child is not present
 	{
 		return std::numeric_limits<T>::max();
 	}
@@ -40,7 +41,7 @@ inline T Heap<T, N>::get_right_child(size_t index)
 	{
 		return m_Array[2 * index + 1];
 	}
-	else//defining a predictable behaviour for the cases where a child is not present
+	else // defining a predictable behaviour for the cases where a child is not present
 	{
 		return std::numeric_limits<T>::max();
 	}
@@ -50,30 +51,33 @@ inline Heap<T, N>::Heap()
 {
 	m_Array = new T[N];
 }
+
 template<typename T, size_t N>
 inline Heap<T, N>::Heap(const Heap& rhs) noexcept
 {
-	Heap<std::remove_pointer<decltype(rhs.get())>::type, rhs.size()> ret();
-	return ret;
+	return Heap(rhs.m_Array);
 }
+
 template<typename T, size_t N>
 inline Heap<T, N>::Heap(const Heap&& rhs) noexcept
 {
-	m_Array = rhs.m_Array;
-	rhs.m_Array = nullptr;
+	this->m_Array = rhs.m_Array;
+	rhs.m_Array	  = nullptr;
 }
+
 template<typename T, size_t N>
-inline Heap<T, N> Heap<T, N>::operator=(const Heap& rhs)
+inline Heap<T, N>& Heap<T, N>::operator=(const Heap& rhs)
 {
-	Heap<std::remove_pointer<decltype(rhs.get())>::type, rhs.size()> ret(rhs.get());
-	return ret;
+	m_Array = new T[N];
+	std::copy(rhs.m_Array, rhs.m_Array + N, m_Array);
+	return *this;
 }
 
 // TDOD : how do i do a move constructor here
 template<typename T, size_t N>
-inline Heap<T, N> Heap<T, N>::operator=(const Heap&& rhs)
+inline Heap<T, N>& Heap<T, N>::operator=(const Heap&& rhs)
 {
-	m_Array = rhs.m_Array;
+	m_Array		= rhs.m_Array;
 	rhs.m_Array = nullptr;
 }
 } // namespace Structures

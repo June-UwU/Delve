@@ -6,20 +6,8 @@ namespace Delve
 {
 namespace algo
 {
-template<typename T, size_t N>
-sub_array_ret<T> max_subarray_brute(T (&array)[N]);
-
 template<typename T>
-sub_array_ret<T> max_subarray_brute(T* array, size_t N);
-
-template<typename T, size_t N>
-sub_array_ret<T> min_subarray_brute(T (&array)[N]);
-
-template<typename T>
-sub_array_ret<T> min_subarray_brute(T array, size_t N);
-
-template<typename T>
-sub_array_ret<T> max_subarray_dac(T* array, size_t low, size_t high);
+T max_subarray_kadane(T* array, size_t size) noexcept;
 
 } // namespace algo
 } // namespace Delve
