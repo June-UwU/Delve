@@ -61,6 +61,28 @@ TEST(algorithm, kadane_max_sub_array)
 	ASSERT_TRUE(ret == 13);
 }
 
+TEST(structures, Heap)
+{
+	int						array_1[]{ -1, -2, -3, -4, -5, 6, 7 };
+	Delve::Structures::Heap Heap_1 = Delve::Structures::Heap<int, std::size(array_1)>(array_1);
+	Delve::Structures::Heap Heap_2(Heap_1);
+	Delve::Structures::Heap Heap_3 = Heap_1;
+
+	// how do I check for move assignment and how do I test if it worked as expected
+	/*ASSERTIONS AND CHECKING */
+	ASSERT_TRUE(memcmp(array_1, Heap_1.get(), Heap_1.size() * sizeof(int)) == 0); // pointer / array constructor test
+	ASSERT_TRUE(memcmp(array_1, Heap_2.get(), Heap_2.size() * sizeof(int)) == 0); // copy constructor
+	ASSERT_TRUE(memcmp(array_1, Heap_2.get(), Heap_3.size() * sizeof(int)) == 0); // copy assignment
+	ASSERT_TRUE(Heap_1.get_left_child(0) == array_1[1]);						  // checking proper left child
+	ASSERT_TRUE(Heap_1.get_right_child(0) == array_1[2]);						  // checking proper right child
+	ASSERT_TRUE(Heap_1.get_parent(1) == array_1[0]);							  // checking proper parent
+	ASSERT_TRUE(Heap_1.get_parent(2) == array_1[0]);							  // checking proper parent
+	ASSERT_TRUE(Heap_1.get_parent(3) == array_1[1]);							  // checking proper parent
+	ASSERT_TRUE(Heap_1.get_parent(4) == array_1[1]);							  // checking proper parent
+	ASSERT_TRUE(Heap_1.get_parent(0) == std::numeric_limits<int>::max());		  // checking specified behaviour
+	// check for invalid child needs to be done
+}
+
 int main(int argc, char** argv)
 {
 	// TODO :write test for heap class and debug all functions and utils

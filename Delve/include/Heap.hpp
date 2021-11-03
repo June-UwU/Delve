@@ -16,11 +16,11 @@ public:
 	Heap(const T* ptr) noexcept;
 	Heap(std::initializer_list<T> list) noexcept;
 	size_t size() const { return N; };
-	T*	   get()  const { return m_Array; };
-	T	   operator[](size_t index) { return m_Array[index]; };
-	T	   get_parent(size_t index) { return index / 2; };
-	T	   get_left_child(size_t index);
-	T	   get_right_child(size_t index);
+	T*	   get() const { return m_Array; };
+	T	   operator[](size_t index) const { return m_Array[index]; };
+	T	   get_parent(size_t index) const;
+	T	   get_left_child(size_t index) const;
+	T	   get_right_child(size_t index) const;
 
 private:
 	T* m_Array;

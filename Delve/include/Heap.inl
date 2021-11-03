@@ -23,11 +23,24 @@ inline Heap<T, N>::Heap(std::initializer_list<T> list) noexcept
 	memcpy(m_Array, list.get(), N * sizeof(T));
 }
 template<typename T, size_t N>
-inline T Heap<T, N>::get_left_child(size_t index)
+inline T Heap<T, N>::get_parent(size_t index) const
 {
-	if (N < 2 * index + 1)
+	if (index == 0)
 	{
-		return m_Array[2 * index];
+		return std::numeric_limits<T>::max();
+	}
+	else if (index % 2 == 0)
+	{
+		return m_Array[(index - 1) / 2];
+	}
+	return m_Array[index / 2];
+}
+template<typename T, size_t N>
+inline T Heap<T, N>::get_left_child(size_t index) const
+{
+	if (N > ((2 * index) + 1))
+	{
+		return m_Array[(2 * index) + 1];
 	}
 	else // defining a predictable behaviour for the cases where a child is not present
 	{
@@ -35,11 +48,11 @@ inline T Heap<T, N>::get_left_child(size_t index)
 	}
 }
 template<typename T, size_t N>
-inline T Heap<T, N>::get_right_child(size_t index)
+inline T Heap<T, N>::get_right_child(size_t index) const
 {
-	if (N < 2 * index + 1)
+	if (N > (2 * (index + 1)))
 	{
-		return m_Array[2 * index + 1];
+		return m_Array[(2 * (index + 1))];
 	}
 	else // defining a predictable behaviour for the cases where a child is not present
 	{
@@ -55,7 +68,7 @@ inline Heap<T, N>::Heap()
 template<typename T, size_t N>
 inline Heap<T, N>::Heap(const Heap& rhs) noexcept
 {
-	return Heap(rhs.m_Array);
+	m_Array = rhs.m_Array;
 }
 
 template<typename T, size_t N>
