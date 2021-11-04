@@ -83,6 +83,18 @@ TEST(structures, Heap)
 	// check for invalid child needs to be done
 }
 
+TEST(structures, heap_algorithms)
+{
+	int						array_1[]{ -1, -2, -3, -4, -5, 6, 7 };
+	const size_t			size   = std::size(array_1);
+	Delve::Structures::Heap Heap_1 = Delve::Structures::Heap<int, size>(array_1);
+	Delve::Structures::Heap<int, size>::heap_sort(Heap_1);
+	for (size_t i = 0;i<Heap_1.size();i++)
+	{
+		std::cout << Heap_1[i] << "/n";
+	}
+}
+
 int main(int argc, char** argv)
 {
 	// TODO :write test for heap class and debug all functions and utils
