@@ -36,15 +36,15 @@ void merge(T* array, size_t left, size_t mid, size_t right, size_t size)
 	}
 	for (size_t i = 0; i < r_size; i++)
 	{
-		if ((mid +1 +i) == size)
+		if ((mid + 1 + i) == size)
 		{
-			//last edge case handling...size will be zero here
+			// last edge case handling...size will be zero here
 			r_size--;
-		}else
-		{
-			r_array[i] = array[mid + i + 1];		
 		}
-		
+		else
+		{
+			r_array[i] = array[mid + i + 1];
+		}
 	}
 	size_t l_index = 0;
 	size_t r_index = 0;
@@ -83,12 +83,12 @@ void merge_sort(T* array, size_t left, size_t right, size_t size) noexcept
 	{
 		return;
 	}
-		else
+	else
 	{
 		size_t middle = (right + left) / 2;
-		merge_sort(array, left, middle,size);
-		merge_sort(array, middle + 1, right,size);
-		merge(array, left, middle, right,size);
+		merge_sort(array, left, middle, size);
+		merge_sort(array, middle + 1, right, size);
+		merge(array, left, middle, right, size);
 	}
 }
 
