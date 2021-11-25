@@ -1,6 +1,7 @@
 #pragma once
 #include <limits>
 #include "Sort.hpp"
+#include "..\Sort.hpp"
 
 namespace Delve
 {
@@ -170,6 +171,25 @@ void heap_sort(T* array, size_t N) noexcept
 		array[0] = temp;
 		max_heapify(array, i, 0);
 	}
+}
+
+template<typename T>
+T* counting_sort_ret(T* array, size_t N, T max_range = std::numeric_limits<T>::max(), T min_range = std::numeric_limits<T>::min()) noexcept
+{
+	T*	   ret_array = new T[N];
+	size_t pos		 = 0;
+	for (T i = min_range; i < max_range + 1; i++)
+	{
+		for (size_t j = 0; j < N; j++)
+		{
+			if (array[j] == i)
+			{
+				ret_array[pos] = i;
+				pos++;
+			}
+		}
+	}
+	return ret_array;
 }
 
 } // namespace Sort

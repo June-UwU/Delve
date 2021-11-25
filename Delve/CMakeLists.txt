@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED)
 
 
 file(GLOB_RECURSE inc "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp")
-file(GLOB_RECURSE inl "${CMAKE_CURRENT_SOURCE_DIR}/*.inl")
+file(GLOB_RECURSE inl "${CMAKE_CURRENT_SOURCE_DIR}/include/implementation/*.inl")
 
 
 add_definitions(-DDELVE_API)

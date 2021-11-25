@@ -46,7 +46,7 @@ TEST(sort, merge_sort)
 	Delve::Sort::merge_sort(array_1, 0, size, size);
 	for (int i = 0; i < size - 1; i++)
 	{
-		if (array_1[i] > array_1[i + 1])
+		if (array_1[i] > array_1[(i + 1)])
 		{
 			relativity = false;
 		}
@@ -61,7 +61,38 @@ TEST(algorithm, kadane_max_sub_array)
 	ASSERT_TRUE(ret == 13);
 }
 
+TEST(sort, heap_sort)
+{
+	int	   array_1[]{ 2, 1, 0, -1, -2, 4, 3, -2, 3, 5, 3, 76, 4, 72, 0, 3, 1, 3, 57, 3 };
+	bool   relativity = true;
+	size_t size		  = std::size(array_1);
+	Delve::Sort::heap_sort(array_1, size);
+	for (int i = 0; i < size - 1; i++)
+	{
+		if (array_1[i] > array_1[i + 1])
+		{
+			relativity = false;
+		}
+	}
+	ASSERT_TRUE(relativity);
+}
 
+
+TEST(sort, counting_sort)
+{
+	int	   array_1[]{ 2, 1, 0, -1, -2, 4, 3, -2, 3, 5, 3, 76, 4, 72, 0, 3, 1, 3, 57, 3 };
+	bool   relativity = true;
+	size_t size = std::size(array_1);
+	auto ret = Delve::Sort::counting_sort_ret(array_1, size);
+	for (int i = 0; i < size - 1; i++)
+	{
+		if (ret[i] > ret[i + 1])
+		{
+			relativity = false;
+		}
+	}
+	ASSERT_TRUE(relativity);
+}
 
 int main(int argc, char** argv)
 {

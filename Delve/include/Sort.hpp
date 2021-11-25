@@ -1,4 +1,5 @@
 #include "Defines.hpp"
+#include <limits.h>
 
 // TODO:make a pointer size versions for all required ones
 namespace Delve
@@ -13,6 +14,8 @@ template<typename T>
 void insertion_sort(T* array, size_t N) noexcept;
 template<typename T>
 void heap_sort(T* array, size_t N) noexcept;
+template<typename T>
+T* counting_sort_ret(T* array, size_t N, T max_range, T min_range) noexcept;
 } // namespace Sort
 } // namespace Delve
 
