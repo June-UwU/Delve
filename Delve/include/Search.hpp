@@ -13,4 +13,4 @@ T binary_search(const T (&array)[N], const T Key) noexcept;
 
 } // namespace Delve
 
-#include "Search.inl"
+#include "implementation/Search.inl"

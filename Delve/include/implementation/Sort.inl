@@ -114,49 +114,62 @@ void insertion_sort(T* array, size_t N) noexcept
 
 size_t right(const size_t index) noexcept
 {
-	return 0;
+	return ((2 * index) + 2);
 }
 
 size_t left(const size_t index) noexcept
 {
-	return 0;
+	return ((2 * index) + 1);
 }
 
 template<typename T>
-void max_heapify(T* array, size_t heap_size, size_t index)
+void max_heapify(T* array, size_t arraysize, int index)
 {
-	size_t left_index	 = left(index);
-	size_t right_index	 = right(index);
-	size_t largest_index = index;
-	if (left_index <= heap_size && array[left_index] > array[index])
+	size_t left_index  = left(index);
+	size_t right_index = right(index);
+	size_t largest{};
+	if (left_index < arraysize && array[left_index] > array[index])
 	{
-		largest_index = left_index;
+		largest = left_index;
 	}
-	if (right_index <= heap_size && array[right_index] > array[index])
+	else
 	{
-		largest_index = right_index;
+		largest = index;
 	}
-	if (largest_index == index)
+
+	if (right_index < arraysize && array[right_index] > array[largest])
 	{
-		T temp				 = array[index];
-		array[index]		 = array[largest_index];
-		array[largest_index] = temp;
-		max_heapify(array, heap_size, largest_index);
+		largest = right_index;
+	}
+
+	if (largest != index)
+	{
+		T temp		   = array[largest];
+		array[largest] = array[index];
+		array[index]   = temp;
+		max_heapify(array, arraysize, largest);
 	}
 }
 
 template<typename T>
-void build_max_heap(T* array, size_t N) noexcept // N is the heap size
+void build_max_heap(T* array, size_t arraysize) noexcept // N is the heap size
 {
-	size_t heap_size = N;
-	for (size_t i = N / 2; i >= 0; i++)
+	for (int i = arraysize / 2 - 1; i > -1; i--)
 	{
-		max_heapify(array, N, i);
+		max_heapify(array, arraysize, i);
 	}
 }
 template<typename T>
-void heap_sort(T* array, size_t heapsize, size_t N) noexcept
+void heap_sort(T* array, size_t N) noexcept
 {
+	build_max_heap(array, N);
+	for (size_t i = N - 1; i > 0; i--)
+	{
+		T temp	 = array[i];
+		array[i] = array[0];
+		array[0] = temp;
+		max_heapify(array, i, 0);
+	}
 }
 
 } // namespace Sort
