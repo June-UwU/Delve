@@ -2,15 +2,27 @@
 
 namespace Delve
 {
-namespace Structure
+namespace structure
 {
+template<typename T, size_t N>
+inline Stack<T, N>::Stack(Stack& rhs) noexcept
+{
+	memcpy(array, rhs.data(), rhs.size() * sizeof(T));
+}
+template<typename T, size_t N>
+inline Stack<T, N>::Stack(Stack&& rhs) noexcept
+{
+	memcpy(array, rhs.data(), rhs.size() * sizeof(T));
+	rhs.data() = nullptr;
+}
+
 template<typename T, size_t N>
 inline T Stack<T, N>::pop() noexcept
 {
 	if (Elements)
 	{
+		return array[Elements - 1];
 		Elements--;
-		return array[Elements];
 	}
 	else
 	{
@@ -20,15 +32,15 @@ inline T Stack<T, N>::pop() noexcept
 template<typename T, size_t N>
 inline T Stack<T, N>::peek() noexcept
 {
-	return array[Elements];
+	return array[Elements - 1];
 }
 template<typename T, size_t N>
 inline void Stack<T, N>::push(T data) noexcept
 {
 	if (Elements < N)
 	{
-		Element++;
 		array[Elements] = data;
+		Elements++;
 	}
 }
 template<typename T, size_t N>
@@ -41,5 +53,5 @@ inline T* Stack<T, N>::data() noexcept
 {
 	return array;
 }
-} // namespace Structure
+} // namespace structure
 } // namespace Delve

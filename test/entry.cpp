@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Delve.hpp"
 #include <gtest/gtest.h>
 
@@ -77,13 +78,12 @@ TEST(sort, heap_sort)
 	ASSERT_TRUE(relativity);
 }
 
-
 TEST(sort, counting_sort)
 {
 	int	   array_1[]{ 2, 1, 0, -1, -2, 4, 3, -2, 3, 5, 3, 76, 4, 72, 0, 3, 1, 3, 57, 3 };
 	bool   relativity = true;
-	size_t size = std::size(array_1);
-	auto ret = Delve::Sort::counting_sort_ret(array_1, size);
+	size_t size		  = std::size(array_1);
+	auto   ret		  = Delve::Sort::counting_sort_ret(array_1, size);
 	for (int i = 0; i < size - 1; i++)
 	{
 		if (ret[i] > ret[i + 1])
@@ -92,6 +92,19 @@ TEST(sort, counting_sort)
 		}
 	}
 	ASSERT_TRUE(relativity);
+}
+
+TEST(structures, array_stack)
+{
+	Delve::structure::Stack<int, 5> stack_1;
+	stack_1.push(1);
+	stack_1.push(2);
+	Delve::structure::Stack<int, 5> stack_2(stack_1);
+	ASSERT_TRUE(!memcmp(stack_1.data(), stack_2.data(), stack_1.size() * sizeof(int)));
+	ASSERT_TRUE(stack_1.data()[0] == stack_1.front());
+	auto peekvar = stack_1.peek();
+	auto popvar	 = stack_1.pop();
+	ASSERT_TRUE(peekvar == popvar);
 }
 
 int main(int argc, char** argv)

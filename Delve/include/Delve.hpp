@@ -5,3 +5,4 @@
 #include "Search.hpp"
 #include "Sort.hpp"
 #include "Algo.hpp"
+#include "stack.hpp"
