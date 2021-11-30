@@ -16,6 +16,8 @@ template<typename T>
 void heap_sort(T* array, size_t N) noexcept;
 template<typename T>
 T* counting_sort_ret(T* array, size_t N, T max_range, T min_range) noexcept;
+template<typename T>
+void quick_sort(T* array, int low, int N) noexcept;
 } // namespace Sort
 } // namespace Delve
 

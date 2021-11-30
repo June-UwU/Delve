@@ -107,6 +107,22 @@ TEST(structures, array_stack)
 	ASSERT_TRUE(peekvar == popvar);
 }
 
+TEST(sort, quick_sort)
+{
+	int	   array_1[]{ 2, 1, 0, -1, -2, 4, 3, -2, 3, 5, 3, 76, 4, 72, 0, 3, 1, 3, 57, 3 };
+	bool   relativity = true;
+	size_t size		  = std::size(array_1);
+	Delve::Sort::quick_sort(array_1, 0, size - 1);
+	for (int i = 0; i < size - 1; i++)
+	{
+		if (array_1[i] > array_1[i + 1])
+		{
+			relativity = false;
+		}
+	}
+	ASSERT_TRUE(relativity);
+}
+
 int main(int argc, char** argv)
 {
 	// TODO :write test for heap class and debug all functions and utils

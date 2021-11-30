@@ -174,7 +174,11 @@ void heap_sort(T* array, size_t N) noexcept
 }
 
 template<typename T>
-T* counting_sort_ret(T* array, size_t N, T max_range = std::numeric_limits<T>::max(), T min_range = std::numeric_limits<T>::min()) noexcept
+T* counting_sort_ret(
+	T*	   array,
+	size_t N,
+	T	   max_range = std::numeric_limits<T>::max(),
+	T	   min_range = std::numeric_limits<T>::min()) noexcept
 {
 	T*	   ret_array = new T[N];
 	size_t pos		 = 0;
@@ -190,6 +194,39 @@ T* counting_sort_ret(T* array, size_t N, T max_range = std::numeric_limits<T>::m
 		}
 	}
 	return ret_array;
+}
+
+template<typename T>
+int partition(T* array, int low, int high)
+{
+	auto pivot = array[high];
+	int	 ret   = low - 1;
+	for (int i = low; i < high; i++)
+	{
+		if (array[i] <= pivot)
+		{
+			ret++;
+			T temp	   = array[i];
+			array[i]   = array[ret];
+			array[ret] = temp;
+		}
+	}
+	ret++;
+	T temp		= array[ret];
+	array[ret]	= array[high];
+	array[high] = temp;
+	return ret;
+}
+
+template<typename T>
+void quick_sort(T* array, int low, int high) noexcept
+{
+	if (low < high )
+	{
+		auto pi = partition(array, low, high);
+		quick_sort(array, low, pi - 1);
+		quick_sort(array, pi , high);
+	}
 }
 
 } // namespace Sort
