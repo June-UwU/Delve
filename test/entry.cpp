@@ -123,6 +123,30 @@ TEST(sort, quick_sort)
 	ASSERT_TRUE(relativity);
 }
 
+TEST(structures, dynamic_set)
+{
+	int								   check_array[]{ 1, 2, 3, 4, 5 };
+	size_t							   arraysize = std::size(check_array);
+	Delve::structure::Dynamic_set<int> set;
+	ASSERT_TRUE(set.front() == nullptr);
+	for (size_t i = 0; i < arraysize; i++)
+	{
+		set.insert(check_array[i]);
+	}
+	bool relativity = true;
+	for (size_t i = 0; i < arraysize; i++)
+	{
+		std::cout << set.get_satelite_data() << '\n';
+		if (set.get_satelite_data() != check_array[i])
+		{
+			relativity = false;
+			break;
+		}
+		set.pop_front();
+	}
+	ASSERT_TRUE(relativity);
+}
+
 int main(int argc, char** argv)
 {
 	// TODO :write test for heap class and debug all functions and utils

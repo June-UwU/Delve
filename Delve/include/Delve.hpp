@@ -6,3 +6,4 @@
 #include "Sort.hpp"
 #include "Algo.hpp"
 #include "stack.hpp"
+#include "Dynamic_set.hpp"
