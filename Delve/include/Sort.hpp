@@ -7,17 +7,17 @@ namespace Delve
 namespace Sort
 {
 template<typename T, size_t N>
-void insertion_sort(T (&array)[N]) noexcept;
+void insertion_sort(T (&ptr)[N]) noexcept;
 template<typename T>
-void merge_sort(T* array, size_t Left, size_t Right, size_t size) noexcept;
+void merge_sort(T* ptr, size_t size) noexcept;
 template<typename T>
-void insertion_sort(T* array, size_t N) noexcept;
+void insertion_sort(T* ptr, size_t N) noexcept;
 template<typename T>
-void heap_sort(T* array, size_t N) noexcept;
+void heap_sort(T* ptr, size_t N) noexcept;
 template<typename T>
-T* counting_sort_ret(T* array, size_t N, T max_range, T min_range) noexcept;
+T* counting_sort_ret(T* ptr, size_t N, T max_range, T min_range) noexcept;
 template<typename T>
-void quick_sort(T* array, int low, int N) noexcept;
+void quick_sort(T* ptr, int low, int N) noexcept;
 } // namespace Sort
 } // namespace Delve
 

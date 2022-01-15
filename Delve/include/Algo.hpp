@@ -7,7 +7,7 @@ namespace Delve
 namespace algo
 {
 template<typename T>
-T max_subarray_kadane(T* array, size_t size) noexcept;
+T max_subarray_kadane(T* ptr, size_t size) noexcept;
 
 } // namespace algo
 } // namespace Delve

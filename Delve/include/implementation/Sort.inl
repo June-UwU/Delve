@@ -8,104 +8,88 @@ namespace Delve
 namespace Sort
 {
 template<typename T, size_t N>
-void insertion_sort(T (&array)[N]) noexcept
+void insertion_sort(T (&ptr)[N]) noexcept
 {
 	for (int i = 0; i < N; i++)
 	{
-		T Key = array[i];
+		T Key = ptr[i];
 		for (int j = i; j < N; j++)
 		{
-			if (Key > array[j])
+			if (Key > ptr[j])
 			{
-				Key		 = array[j];
-				array[j] = array[i];
-				array[i] = Key;
+				Key	   = ptr[j];
+				ptr[j] = ptr[i];
+				ptr[i] = Key;
 			}
 		}
 	}
 }
 template<typename T>
-void merge(T* array, size_t left, size_t mid, size_t right, size_t size)
+void merge_sort(T* ptr, size_t size) noexcept
 {
-	size_t l_size  = mid - left + 1;
-	size_t r_size  = right - mid;
-	T*	   l_array = new T[l_size];
-	T*	   r_array = new T[r_size];
-	for (size_t i = 0; i < l_size; i++)
+	T* temp = new T[size];
+	intern_merge_sort<T>(ptr, 0, size - 1, temp);
+	delete[] temp;
+}
+template<typename T>
+void merge(T* ptr, size_t left, size_t mid, size_t right, T* temp)
+{
+	size_t l_index = left;
+	size_t r_index = mid + 1;
+	for (size_t i = left; i <= mid; i++)
 	{
-		l_array[i] = array[left + i];
+		temp[i] = ptr[i];
 	}
-	for (size_t i = 0; i < r_size; i++)
+	for (size_t i = mid + 1; i <= right; i++)
 	{
-		if ((mid + 1 + i) == size)
+		temp[i] = ptr[i];
+	}
+	size_t index = left;
+	while (l_index <= mid && r_index <= right)
+	{
+		if (temp[l_index] < temp[r_index])
 		{
-			// last edge case handling...size will be zero here
-			r_size--;
+			ptr[index++] = temp[l_index++];
 		}
 		else
 		{
-			r_array[i] = array[mid + i + 1];
+			ptr[index++] = temp[r_index++];
 		}
 	}
-	size_t l_index = 0;
-	size_t r_index = 0;
-	size_t a_index = left;
-	while ((l_index < l_size) && (r_index < r_size))
+	while (l_index <= mid)
 	{
-		if (l_array[l_index] <= r_array[r_index])
-		{
-			array[a_index] = l_array[l_index];
-			l_index++;
-		}
-		else
-		{
-			array[a_index] = r_array[r_index];
-			r_index++;
-		}
-		a_index++;
+		ptr[index++] = temp[l_index++];
 	}
-	while (l_index < l_size)
+	while (r_index <= right)
 	{
-		array[a_index] = l_array[l_index];
-		l_index++;
-		a_index++;
-	}
-	while (r_index < r_size)
-	{
-		array[a_index] = r_array[r_index];
-		r_index++;
-		a_index++;
+		ptr[index++] = temp[r_index++];
 	}
 }
 template<typename T>
-void merge_sort(T* array, size_t left, size_t right, size_t size) noexcept
+void intern_merge_sort(T* ptr, size_t left, size_t right, T* temp) noexcept
 {
-	if (left >= right)
-	{
-		return;
-	}
-	else
+	if (left < right)
 	{
 		size_t middle = (right + left) / 2;
-		merge_sort(array, left, middle, size);
-		merge_sort(array, middle + 1, right, size);
-		merge(array, left, middle, right, size);
+		intern_merge_sort<T>(ptr, left, middle, temp);
+		intern_merge_sort<T>(ptr, middle + 1, right, temp);
+		merge<T>(ptr, left, middle, right, temp);
 	}
 }
 
 template<typename T>
-void insertion_sort(T* array, size_t N) noexcept
+void insertion_sort(T* ptr, size_t N) noexcept
 {
 	for (int i = 0; i < N; i++)
 	{
-		T Key = array[i];
+		T Key = ptr[i];
 		for (int j = i; j < N; j++)
 		{
-			if (Key > array[j])
+			if (Key > ptr[j])
 			{
-				Key		 = array[j];
-				array[j] = array[i];
-				array[i] = Key;
+				Key	   = ptr[j];
+				ptr[j] = ptr[i];
+				ptr[i] = Key;
 			}
 		}
 	}
@@ -124,12 +108,12 @@ size_t left(const size_t index) noexcept
 }
 
 template<typename T>
-void max_heapify(T* array, size_t arraysize, int index)
+void max_heapify(T* ptr, size_t ptrsize, int index)
 {
 	size_t left_index  = left(index);
 	size_t right_index = right(index);
 	size_t largest{};
-	if (left_index < arraysize && array[left_index] > array[index])
+	if (left_index < ptrsize && ptr[left_index] > ptr[index])
 	{
 		largest = left_index;
 	}
@@ -138,94 +122,94 @@ void max_heapify(T* array, size_t arraysize, int index)
 		largest = index;
 	}
 
-	if (right_index < arraysize && array[right_index] > array[largest])
+	if (right_index < ptrsize && ptr[right_index] > ptr[largest])
 	{
 		largest = right_index;
 	}
 
 	if (largest != index)
 	{
-		T temp		   = array[largest];
-		array[largest] = array[index];
-		array[index]   = temp;
-		max_heapify(array, arraysize, largest);
+		T temp		 = ptr[largest];
+		ptr[largest] = ptr[index];
+		ptr[index]	 = temp;
+		max_heapify(ptr, ptrsize, largest);
 	}
 }
 
 template<typename T>
-void build_max_heap(T* array, size_t arraysize) noexcept // N is the heap size
+void build_max_heap(T* ptr, size_t ptrsize) noexcept // N is the heap size
 {
-	for (int i = arraysize / 2 - 1; i > -1; i--)
+	for (int i = ptrsize / 2 - 1; i > -1; i--)
 	{
-		max_heapify(array, arraysize, i);
+		max_heapify(ptr, ptrsize, i);
 	}
 }
 template<typename T>
-void heap_sort(T* array, size_t N) noexcept
+void heap_sort(T* ptr, size_t N) noexcept
 {
-	build_max_heap(array, N);
+	build_max_heap(ptr, N);
 	for (size_t i = N - 1; i > 0; i--)
 	{
-		T temp	 = array[i];
-		array[i] = array[0];
-		array[0] = temp;
-		max_heapify(array, i, 0);
+		T temp = ptr[i];
+		ptr[i] = ptr[0];
+		ptr[0] = temp;
+		max_heapify(ptr, i, 0);
 	}
 }
 
 template<typename T>
 T* counting_sort_ret(
-	T*	   array,
+	T*	   ptr,
 	size_t N,
 	T	   max_range = std::numeric_limits<T>::max(),
 	T	   min_range = std::numeric_limits<T>::min()) noexcept
 {
-	T*	   ret_array = new T[N];
-	size_t pos		 = 0;
+	T*	   ret_ptr = new T[N];
+	size_t pos	   = 0;
 	for (T i = min_range; i < max_range + 1; i++)
 	{
 		for (size_t j = 0; j < N; j++)
 		{
-			if (array[j] == i)
+			if (ptr[j] == i)
 			{
-				ret_array[pos] = i;
+				ret_ptr[pos] = i;
 				pos++;
 			}
 		}
 	}
-	return ret_array;
+	return ret_ptr;
 }
 
 template<typename T>
-int partition(T* array, int low, int high)
+int partition(T* ptr, int low, int high)
 {
-	auto pivot = array[high];
+	auto pivot = ptr[high];
 	int	 ret   = low - 1;
 	for (int i = low; i < high; i++)
 	{
-		if (array[i] <= pivot)
+		if (ptr[i] <= pivot)
 		{
 			ret++;
-			T temp	   = array[i];
-			array[i]   = array[ret];
-			array[ret] = temp;
+			T temp	 = ptr[i];
+			ptr[i]	 = ptr[ret];
+			ptr[ret] = temp;
 		}
 	}
 	ret++;
-	T temp		= array[ret];
-	array[ret]	= array[high];
-	array[high] = temp;
+	T temp	  = ptr[ret];
+	ptr[ret]  = ptr[high];
+	ptr[high] = temp;
 	return ret;
 }
 
 template<typename T>
-void quick_sort(T* array, int low, int high) noexcept
+void quick_sort(T* ptr, int low, int high) noexcept
 {
-	if (low < high )
+	if (low < high)
 	{
-		auto pi = partition(array, low, high);
-		quick_sort(array, low, pi - 1);
-		quick_sort(array, pi , high);
+		auto pi = partition(ptr, low, high);
+		quick_sort(ptr, low, pi - 1);
+		quick_sort(ptr, pi, high);
 	}
 }
 
