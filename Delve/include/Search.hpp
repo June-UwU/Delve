@@ -6,9 +6,9 @@ namespace Delve
 namespace Search
 {
 template<typename T, size_t N>
-T linear_search(const T (&array)[N], const T Key) noexcept;
-template<typename T, size_t N>
-T binary_search(const T (&array)[N], const T Key) noexcept;
+int linear_search(const T (&array)[N], const T Key) noexcept;
+template<typename T>
+int binary_search(const T* array, const T Key, size_t N) noexcept;
 } // namespace Search
 
 } // namespace Delve

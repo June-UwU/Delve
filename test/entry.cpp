@@ -18,9 +18,12 @@ TEST(search, linear_search)
 
 TEST(search, binary_search)
 {
-	int array_1[]{ 0, 1, 2, 3, 4, 5 };
-	ASSERT_EQ(2, Delve::Search::binary_search(array_1, 2));
-	ASSERT_EQ(-1, Delve::Search::binary_search(array_1, 8));
+	int	   array_1[]{ 0, 1, 2, 3, 4, 5 };
+	size_t size = std::size(array_1);
+	ASSERT_EQ(2, Delve::Search::binary_search(array_1, 2, size));
+	ASSERT_EQ(-1, Delve::Search::binary_search(array_1, 8, size));
+	ASSERT_EQ(5, Delve::Search::binary_search(array_1, 5, size));
+
 }
 
 TEST(sort, linear_sort)
